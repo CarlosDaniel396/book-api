@@ -3,6 +3,9 @@ package com.carlos.demo.services;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +23,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.carlos.demo.dto.AuthorDTO;
 import com.carlos.demo.entities.Author;
 import com.carlos.demo.repositories.AuthorRepository;
+import com.carlos.demo.services.exceptions.ResourceNotFoundException;
 import com.carlos.demo.tests.Factory;
 
 @ExtendWith(SpringExtension.class)
@@ -29,19 +33,29 @@ public class AuthorServiceTests {
 	private AuthorService service;
 
 	@Mock
-	private AuthorRepository authorRepository;
+	private AuthorRepository repository;
 
+	private long existingId;
+	private long nonExistingId;
 	private Author author;
 	private AuthorDTO authorDTO;
 	private PageImpl<Author> page;
 
 	@BeforeEach
 	void setUp() throws Exception {
+		existingId = 1L;
+		nonExistingId = 2L;
 		author = Factory.createAuthor();
 		authorDTO = Factory.createAuthorDTO();
 		page = new PageImpl<>(List.of(author));
 
-		Mockito.when(authorRepository.findAll((Pageable) any())).thenReturn(page);
+		Mockito.when(repository.findAll((Pageable) any())).thenReturn(page);
+
+		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(author));
+		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+		Mockito.when(repository.getReferenceById(existingId)).thenReturn(author);
+		Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 
 	}
 
@@ -55,4 +69,21 @@ public class AuthorServiceTests {
 		Assertions.assertNotNull(result);
 
 	}
+
+	@Test
+	public void findByIdShouldReturnAuthorDTOWhenIdExists() {
+
+		AuthorDTO result = service.findById(existingId);
+
+		Assertions.assertNotNull(result);
+	}
+
+	@Test
+	public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.findById(nonExistingId);
+		});
+	}
+
 }
