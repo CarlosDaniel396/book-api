@@ -29,7 +29,7 @@ public class BookService {
 	public BookDTO findById(Long id) {
 		Optional<Book> obj = repository.findById(id);
 		Book entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
-		return new BookDTO(entity);
+		return new BookDTO(entity, entity.getAuthors());
 	}
 
 }
