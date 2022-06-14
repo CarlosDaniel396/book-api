@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Book implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private String edition;
+	private Integer edition;
 
 	private Integer publicationYear;
 
@@ -44,7 +45,7 @@ public class Book implements Serializable {
 	public Book() {
 	}
 
-	public Book(Long id, String name, String edition, Integer publicationYear) {
+	public Book(Long id, String name, Integer edition, Integer publicationYear) {
 		this.id = id;
 		this.name = name;
 		this.edition = edition;
@@ -67,11 +68,11 @@ public class Book implements Serializable {
 		this.name = name;
 	}
 
-	public String getEdition() {
+	public Integer getEdition() {
 		return edition;
 	}
 
-	public void setEdition(String edition) {
+	public void setEdition(Integer edition) {
 		this.edition = edition;
 	}
 

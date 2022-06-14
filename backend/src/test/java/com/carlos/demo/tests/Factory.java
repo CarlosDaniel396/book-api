@@ -18,7 +18,7 @@ public class Factory {
 	}
 
 	public static Book createBook() {
-		Book book = new Book(1L, "Crime and Punishment", "Martin Claret", 1866);
+		Book book = new Book(1L, "Crime and Punishment", 1 ,1866);
 		return book;
 	}
 

@@ -13,7 +13,7 @@ public class BookDTO implements Serializable {
 
 	private Long id;
 	private String name;
-	private String edition;
+	private Integer edition;
 	private Integer publicationYear;
 
 	private List<AuthorDTO> authors = new ArrayList<>();
@@ -21,7 +21,7 @@ public class BookDTO implements Serializable {
 	public BookDTO() {
 	}
 
-	public BookDTO(Long id, String name,String edition, Integer publicationYear) {
+	public BookDTO(Long id, String name, Integer edition, Integer publicationYear) {
 		this.id = id;
 		this.name = name;
 		this.edition = edition;
@@ -30,6 +30,7 @@ public class BookDTO implements Serializable {
 
 	public BookDTO(Book entity) {
 		id = entity.getId();
+		name = entity.getName();
 		edition = entity.getEdition();
 		publicationYear = entity.getPublicationYear();
 	}
@@ -55,11 +56,11 @@ public class BookDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getEdition() {
+	public Integer getEdition() {
 		return edition;
 	}
 
-	public void setEdition(String edition) {
+	public void setEdition(Integer edition) {
 		this.edition = edition;
 	}
 
