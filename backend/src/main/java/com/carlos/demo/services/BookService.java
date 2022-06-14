@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import com.carlos.demo.entities.Author;
 import com.carlos.demo.entities.Book;
 import com.carlos.demo.repositories.AuthorRepository;
 import com.carlos.demo.repositories.BookRepository;
+import com.carlos.demo.services.exceptions.DatabaseException;
 import com.carlos.demo.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -57,6 +60,16 @@ public class BookService {
 			return new BookDTO(entity);
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
+		}
+	}
+	
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
 		}
 	}
 

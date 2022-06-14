@@ -14,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +27,7 @@ import com.carlos.demo.entities.Author;
 import com.carlos.demo.entities.Book;
 import com.carlos.demo.repositories.AuthorRepository;
 import com.carlos.demo.repositories.BookRepository;
+import com.carlos.demo.services.exceptions.DatabaseException;
 import com.carlos.demo.services.exceptions.ResourceNotFoundException;
 import com.carlos.demo.tests.Factory;
 
@@ -70,6 +73,10 @@ public class BookServiceTests {
 		Mockito.when(authorRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
 		
 		Mockito.when(repository.save(any())).thenReturn(book);
+		
+		Mockito.doNothing().when(repository).deleteById(existingId);
+		Mockito.doThrow(EmptyResultDataAccessException.class).when(repository).deleteById(nonExistingId);
+		Mockito.doThrow(DataIntegrityViolationException.class).when(repository).deleteById(dependentId);
 	}
 
 	@Test
@@ -113,4 +120,35 @@ public class BookServiceTests {
 			service.update(nonExistingId, bookDTO);
 		});
 	}
+	
+	@Test
+	public void deleteShouldDoNothingWhenIdExists() {
+
+		Assertions.assertDoesNotThrow(() -> {
+			service.delete(existingId);
+		});
+
+		Mockito.verify(repository, Mockito.times(1)).deleteById(existingId);
+	}
+	
+	@Test
+	public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.delete(nonExistingId);
+		});
+
+		Mockito.verify(repository, Mockito.times(1)).deleteById(nonExistingId);
+	}
+
+	@Test
+	public void deleteShouldThrowDatabaseExceptionWhenDependentId() {
+
+		Assertions.assertThrows(DatabaseException.class, () -> {
+			service.delete(dependentId);
+		});
+
+		Mockito.verify(repository, Mockito.times(1)).deleteById(dependentId);
+	}
+
 }
