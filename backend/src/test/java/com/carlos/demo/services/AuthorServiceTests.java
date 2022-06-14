@@ -26,7 +26,7 @@ import com.carlos.demo.tests.Factory;
 public class AuthorServiceTests {
 
 	@InjectMocks
-	private AuthorService authorService;
+	private AuthorService service;
 
 	@Mock
 	private AuthorRepository authorRepository;
@@ -50,7 +50,7 @@ public class AuthorServiceTests {
 
 		Pageable pageable = PageRequest.of(0, 10);
 
-		Page<AuthorDTO> result = authorService.findAllPaged(pageable);
+		Page<AuthorDTO> result = service.findAllPaged(pageable);
 
 		Assertions.assertNotNull(result);
 
