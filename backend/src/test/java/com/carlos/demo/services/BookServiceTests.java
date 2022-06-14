@@ -3,6 +3,7 @@ package com.carlos.demo.services;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -24,6 +25,7 @@ import com.carlos.demo.entities.Author;
 import com.carlos.demo.entities.Book;
 import com.carlos.demo.repositories.AuthorRepository;
 import com.carlos.demo.repositories.BookRepository;
+import com.carlos.demo.services.exceptions.ResourceNotFoundException;
 import com.carlos.demo.tests.Factory;
 
 @ExtendWith(SpringExtension.class)
@@ -57,6 +59,9 @@ public class BookServiceTests {
 		page = new PageImpl<>(List.of(book));
 
 		Mockito.when(repository.findAll((Pageable) any())).thenReturn(page);
+		
+		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(book));
+		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 
 		Mockito.when(repository.getReferenceById(existingId)).thenReturn(book);
 		Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
@@ -73,6 +78,21 @@ public class BookServiceTests {
 		Page<BookDTO> result = service.findAllPaged(pageable);
 
 		Assertions.assertNotNull(result);
+	}
+	
+	@Test
+	public void findByIdShouldReturnBookDTOWhenIdExists() {
 
+		BookDTO result = service.findById(existingId);
+
+		Assertions.assertNotNull(result);
+	}
+	
+	@Test
+	public void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.findById(nonExistingId);
+		});
 	}
 }
