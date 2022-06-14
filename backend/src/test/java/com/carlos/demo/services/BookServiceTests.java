@@ -68,6 +68,8 @@ public class BookServiceTests {
 
 		Mockito.when(authorRepository.getReferenceById(existingId)).thenReturn(author);
 		Mockito.when(authorRepository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		
+		Mockito.when(repository.save(any())).thenReturn(book);
 	}
 
 	@Test
@@ -93,6 +95,22 @@ public class BookServiceTests {
 
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			service.findById(nonExistingId);
+		});
+	}
+	
+	@Test
+	public void updateShouldReturnBookDTOWhenIdExists() {
+
+		BookDTO result = service.update(existingId, bookDTO);
+
+		Assertions.assertNotNull(result);
+	}
+
+	@Test
+	public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.update(nonExistingId, bookDTO);
 		});
 	}
 }

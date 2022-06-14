@@ -2,6 +2,8 @@ package com.carlos.demo.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +23,7 @@ public class BookService {
 
 	@Autowired
 	private BookRepository repository;
-	
+
 	@Autowired
 	private AuthorRepository authorRepository;
 
@@ -37,13 +39,25 @@ public class BookService {
 		Book entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new BookDTO(entity, entity.getAuthors());
 	}
-	
+
 	@Transactional
 	public BookDTO insert(BookDTO dto) {
 		Book entity = new Book();
 		copyDtoToEntity(dto, entity);
 		entity = repository.save(entity);
 		return new BookDTO(entity);
+	}
+
+	@Transactional
+	public BookDTO update(Long id, BookDTO dto) {
+		try {
+			Book entity = repository.getReferenceById(id);
+			copyDtoToEntity(dto, entity);
+			entity = repository.save(entity);
+			return new BookDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
 	}
 
 	private void copyDtoToEntity(BookDTO dto, Book entity) {
