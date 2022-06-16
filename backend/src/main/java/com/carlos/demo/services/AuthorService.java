@@ -20,8 +20,8 @@ public class AuthorService {
 	private AuthorRepository repository;
 
 	@Transactional(readOnly = true)
-	public Page<AuthorDTO> findAllPaged(Pageable pageable) {
-		Page<Author> list = repository.findAll(pageable);
+	public Page<AuthorDTO> findAllPaged(Pageable pageable, String name) {
+		Page<Author> list = repository.find(name, pageable);
 		return list.map(x -> new AuthorDTO(x));
 	}
 

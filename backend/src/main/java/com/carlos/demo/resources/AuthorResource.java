@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carlos.demo.dto.AuthorDTO;
@@ -20,8 +21,10 @@ public class AuthorResource {
 	private AuthorService service;
 
 	@GetMapping
-	public ResponseEntity<Page<AuthorDTO>> findAll(Pageable pageable) {
-		Page<AuthorDTO> list = service.findAllPaged(pageable);
+	public ResponseEntity<Page<AuthorDTO>> findAll(
+			@RequestParam(value = "name", defaultValue = "") String name,
+			Pageable pageable) {
+		Page<AuthorDTO> list = service.findAllPaged(pageable, name.trim());
 		return ResponseEntity.ok().body(list);
 	}
 
@@ -30,5 +33,5 @@ public class AuthorResource {
 		AuthorDTO dto = service.findById(id);
 		return ResponseEntity.ok().body(dto);
 	}
-
+		
 }

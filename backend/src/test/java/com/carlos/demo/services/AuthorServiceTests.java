@@ -45,6 +45,7 @@ public class AuthorServiceTests {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 2L;
+
 		author = Factory.createAuthor();
 		authorDTO = Factory.createAuthorDTO();
 		page = new PageImpl<>(List.of(author));
@@ -53,6 +54,8 @@ public class AuthorServiceTests {
 
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(author));
 		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+		
+		Mockito.when(repository.find(any(), any())).thenReturn(page);
 
 		Mockito.when(repository.getReferenceById(existingId)).thenReturn(author);
 		Mockito.when(repository.getReferenceById(nonExistingId)).thenThrow(EntityNotFoundException.class);
@@ -64,7 +67,7 @@ public class AuthorServiceTests {
 
 		Pageable pageable = PageRequest.of(0, 10);
 
-		Page<AuthorDTO> result = service.findAllPaged(pageable);
+		Page<AuthorDTO> result = service.findAllPaged(pageable, "");
 
 		Assertions.assertNotNull(result);
 
