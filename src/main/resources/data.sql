@@ -7,7 +7,6 @@ INSERT INTO tb_author (name) VALUES ('Paul Deitel');
 INSERT INTO tb_book (name, edition, publication_year) VALUES ('Python Fluente',2,2015);
 INSERT INTO tb_book (name, edition, publication_year) VALUES ('Java Como Programar',5,1996);
 
-
 INSERT INTO tb_book_author (book_id, author_id) VALUES(1, 1);
 INSERT INTO tb_book_author (book_id, author_id) VALUES(2, 5);
 
