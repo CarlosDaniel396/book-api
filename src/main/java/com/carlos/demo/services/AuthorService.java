@@ -2,6 +2,8 @@ package com.carlos.demo.services;
 
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,5 +40,17 @@ public class AuthorService {
 		entity.setName(dto.getName());
 		entity = repository.save(entity);
 		return new AuthorDTO(entity);
+	}
+	
+	@Transactional
+	public AuthorDTO update(Long id, AuthorDTO dto) {
+		try {
+			Author entity = repository.getReferenceById(id);
+			entity.setName(dto.getName());
+			entity = repository.save(entity);
+			return new AuthorDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
 	}
 }

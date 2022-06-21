@@ -94,5 +94,22 @@ public class AuthorServiceTests {
 			service.findById(nonExistingId);
 		});
 	}
+	
+
+	@Test
+	public void updateShouldReturnAuthorDTOWhenIdExists() {
+
+		AuthorDTO result = service.update(existingId, authorDTO);
+
+		Assertions.assertNotNull(result);
+	}
+
+	@Test
+	public void updateShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.update(nonExistingId, authorDTO);
+		});
+	}
 
 }
