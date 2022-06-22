@@ -1,0 +1,4 @@
+com/carlos/demo/tests/Factory.class
+com/carlos/demo/DemoApplicationTests.class
+com/carlos/demo/services/BookServiceTests.class
+com/carlos/demo/services/AuthorServiceTests.class

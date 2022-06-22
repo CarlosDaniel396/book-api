@@ -1,0 +1,17 @@
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/DemoApplication.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/exceptions/ValidationError.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/exceptions/FieldMessage.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/dto/BookDTO.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/services/exceptions/ResourceNotFoundException.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/exceptions/StandardError.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/AuthorResource.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/BooksResource.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/services/exceptions/DatabaseException.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/services/BookService.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/repositories/AuthorRepository.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/entities/Author.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/services/AuthorService.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/repositories/BookRepository.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/entities/Book.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/dto/AuthorDTO.java
+/home/carlos/workspaces/ws-bootcamp/book-api/src/main/java/com/carlos/demo/resources/exceptions/ResourceExceptionHandler.java

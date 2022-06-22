@@ -1,0 +1,17 @@
+com/carlos/demo/resources/exceptions/StandardError.class
+com/carlos/demo/resources/BooksResource.class
+com/carlos/demo/dto/AuthorDTO.class
+com/carlos/demo/dto/BookDTO.class
+com/carlos/demo/services/exceptions/ResourceNotFoundException.class
+com/carlos/demo/entities/Author.class
+com/carlos/demo/repositories/BookRepository.class
+com/carlos/demo/services/exceptions/DatabaseException.class
+com/carlos/demo/resources/exceptions/ResourceExceptionHandler.class
+com/carlos/demo/services/AuthorService.class
+com/carlos/demo/resources/exceptions/ValidationError.class
+com/carlos/demo/resources/AuthorResource.class
+com/carlos/demo/repositories/AuthorRepository.class
+com/carlos/demo/entities/Book.class
+com/carlos/demo/resources/exceptions/FieldMessage.class
+com/carlos/demo/DemoApplication.class
+com/carlos/demo/services/BookService.class
