@@ -8,6 +8,12 @@ pode ter um ou mais autores. Cada entidade possui as demais funcionalidades:
 * Atualizar recurso
 * Deletar recurso
 
+# Modelo conceitual
+
+<div align="center">
+<img src="https://github.com/CarlosDaniel396/book-api/blob/main/assets/library-uml.png"/>
+</div>
+
 # Tecnologias utilizadas
 * Java
 * Spring Boot
