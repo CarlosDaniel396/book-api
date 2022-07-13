@@ -76,7 +76,7 @@ public class AuthorServiceTests {
 
 		Pageable pageable = PageRequest.of(0, 10);
 
-		Page<AuthorDTO> result = service.findAllPaged(pageable, "");
+		Page<AuthorDTO> result = service.findAllPaged("", pageable);
 
 		Assertions.assertNotNull(result);
 

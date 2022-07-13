@@ -10,7 +10,6 @@ import com.carlos.demo.entities.Author;
 
 @Repository
 public interface AuthorRepository extends JpaRepository<Author, Long> {
-	
 	@Query("SELECT DISTINCT obj FROM Author obj WHERE "
 			+ "(LOWER(obj.name) LIKE LOWER(CONCAT('%',:name,'%')))")
 	Page<Author> find(String name, Pageable pageable);

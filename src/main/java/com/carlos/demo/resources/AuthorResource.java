@@ -29,9 +29,9 @@ public class AuthorResource {
 
 	@GetMapping
 	public ResponseEntity<Page<AuthorDTO>> findAll(
-			@RequestParam(value = "name", defaultValue = "") String name,
-			Pageable pageable) {
-		Page<AuthorDTO> list = service.findAllPaged(pageable, name.trim());
+			@RequestParam(value = "name", defaultValue = "") String name,Pageable pageable) {
+		
+		Page<AuthorDTO> list = service.findAllPaged(name.trim(), pageable);
 		return ResponseEntity.ok().body(list);
 	}
 
