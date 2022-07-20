@@ -1,6 +1,6 @@
 # Book-api
 
-Sistema bibliotecário em que é possível fazer um CRUD de Autores e de Livros. No relacionamento entre eles, um livro pode ter um ou mais autores. Cada livro possui informações como nome, edição, ano de lançamento e o relacionamento com o nome do autor ou autores.
+Sistema bibliotecário em que é possível fazer um CRUD de Autores e de Livros. No relacionamento entre eles, um livro pode ter um ou mais autores. Cada livro possui informações como nome, edição, ano de lançamento e uma lista do Autor ou Autores presentes nele.
 
 pode ter um ou mais autores. Cada entidade possui as demais funcionalidades:
 * Busca paginada de recursos
